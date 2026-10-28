@@ -1637,14 +1637,9 @@ function renderDrawer() {
           <label class="field"><span>Nome do evento</span>
             <input class="input" name="name" maxlength="100" required placeholder="Ex.: Limpeza da varanda">
           </label>
-          <div class="field-row">
-            <label class="field"><span>Categoria</span>
-              <select class="input" name="category">${categoryOptions('Rotina')}</select>
-            </label>
-            <label class="field"><span>Hora</span>
-              <input class="input" type="time" name="time" aria-label="Hora do evento">
-            </label>
-          </div>
+          <label class="field"><span>Categoria</span>
+            <select class="input" name="category">${categoryOptions('Rotina')}</select>
+          </label>
           <label class="field"><span>Observação</span>
             <input class="input" name="note" maxlength="240" placeholder="Opcional">
           </label>
@@ -1901,8 +1896,6 @@ function addCustomEvent(form) {
   if (!name) return;
 
   const category = CATEGORIES[String(data.get('category'))] ? String(data.get('category')) : 'Outros';
-  const rawTime = String(data.get('time') || '');
-  const time = /^\d{2}:\d{2}$/.test(rawTime) ? rawTime : '';
   const note = String(data.get('note') || '').trim().slice(0, 240);
   const saveBase = data.get('saveBase') === 'on';
 
@@ -1922,7 +1915,7 @@ function addCustomEvent(form) {
     baseId,
     name,
     category,
-    time,
+    time: '',
     note,
     done: false
   });
